@@ -16,15 +16,14 @@ import {
   Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { Overlay } from "react-native-elements";
 import { Surface } from "react-native-paper";
 import { colors } from "../../assets/colors";
 import { Avatar, Text, useTheme } from "react-native-paper";
 import moment from "moment";
-import { Overlay } from "react-native-elements";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function TaskDetails(props) {
+export default function RequestDetailsEmp(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -39,9 +38,9 @@ export default function TaskDetails(props) {
   const [pwdIcon, setPwdIcon] = useState("eye");
   const [visibility, setVisivility] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showApprove, setShowApprove] = useState(false);
+  const [showDenied, setShowDenied] = useState(false);
   const [showExport, setShowExport] = useState(false);
-  const [showTaskOption, setShowTaskOption] = useState(false);
-
   useEffect(() => {
     const unsubscribe = props.navigation.addListener("focus", () => {
       getSaveData();
@@ -77,6 +76,166 @@ export default function TaskDetails(props) {
         : "Good Night!";
     setGreetMsg(msgGreet);
     setLoading(false);
+  };
+
+  const ApprovePOPUP = () => {
+    return (
+      <Overlay
+        visible={showApprove}
+        overlayStyle={{
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <View style={{ padding: 10, width: height / 3 }}>
+          <Text
+            style={{
+              fontSize: height / 60,
+              color: colors.GRAY,
+              fontWeight: "400",
+              marginVertical: height / 200,
+            }}
+          >
+            REQUEST APPROVED
+          </Text>
+
+          <View
+            style={[
+              {
+                borderWidth: 0.5,
+                borderColor: colors.textColor1,
+                marginTop: 10,
+                height: height / 8,
+                padding: 3,
+              },
+            ]}
+          >
+            <TextInput
+              style={{
+                paddingHorizontal: 10,
+                fontSize: height / 63,
+              }}
+              onChangeText={(val) => {
+                setEmail(val), setError("");
+              }}
+              value={email}
+              cursorColor="#fff"
+              placeholder="Add Notes"
+              autoCorrect={false}
+              returnKeyType="done"
+              multiline
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowApprove(false)}>
+              <Image
+                source={require("../../assets/cancelbtn.png")}
+                style={{
+                  height: height / 13.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                source={require("../../assets/savebtn.png")}
+                style={{
+                  height: height / 13.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
+    );
+  };
+
+  const DenyPOPUP = () => {
+    return (
+      <Overlay
+        visible={showDenied}
+        overlayStyle={{
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <View style={{ padding: 10, width: height / 3 }}>
+          <Text
+            style={{
+              fontSize: height / 60,
+              color: colors.GRAY,
+              fontWeight: "400",
+              marginVertical: height / 200,
+            }}
+          >
+            REQUEST DENIED
+          </Text>
+
+          <View
+            style={[
+              {
+                borderWidth: 0.5,
+                borderColor: colors.textColor1,
+                marginTop: 10,
+                height: height / 8,
+                padding: 3,
+              },
+            ]}
+          >
+            <TextInput
+              style={{
+                paddingHorizontal: 10,
+                fontSize: height / 63,
+              }}
+              onChangeText={(val) => {
+                setEmail(val), setError("");
+              }}
+              value={email}
+              cursorColor="#fff"
+              placeholder="Add Notes"
+              autoCorrect={false}
+              returnKeyType="done"
+              multiline
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowDenied(false)}>
+              <Image
+                source={require("../../assets/cancelbtn.png")}
+                style={{
+                  height: height / 13.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image
+                source={require("../../assets/savebtn.png")}
+                style={{
+                  height: height / 13.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
+    );
   };
 
   const ExportPOPUP = () => {
@@ -128,78 +287,6 @@ export default function TaskDetails(props) {
             <TouchableOpacity>
               <Image
                 source={require("../../assets/Excel.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Overlay>
-    );
-  };
-
-  const TaskOptionPOPUP = () => {
-    return (
-      <Overlay
-        visible={showTaskOption}
-        overlayStyle={{
-          backgroundColor: theme.colors.background,
-        }}
-      >
-        <View style={{ padding: 10, width: height / 5 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: height / 60,
-                color: colors.GRAY,
-                fontWeight: "400",
-                marginVertical: height / 200,
-              }}
-            >
-              ADD TASK
-            </Text>
-            <TouchableOpacity onPress={() => setShowTaskOption(false)}>
-              <MaterialCommunityIcons
-                name="close-circle-outline"
-                color={colors.GRAY}
-                size={height / 40}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ alignItems: "center", marginTop: 13 }}>
-            <TouchableOpacity>
-              <Image
-                source={require("../../assets/Duplicate.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={require("../../assets/Createnewbtn.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={require("../../assets/cancelbtn.png")}
                 style={{
                   height: height / 16.5,
                   width: height / 6.8,
@@ -275,8 +362,9 @@ export default function TaskDetails(props) {
           },
         ]}
       >
+        <ApprovePOPUP />
+        <DenyPOPUP />
         <ExportPOPUP />
-        <TaskOptionPOPUP />
         <View
           style={{
             flexDirection: "row",
@@ -288,37 +376,26 @@ export default function TaskDetails(props) {
             <Image
               source={require("../../assets/back.png")}
               style={{
-                height: height / 11,
-                width: width / 11,
+                height: height / 10,
+                width: width / 10,
                 resizeMode: "contain",
               }}
             />
           </TouchableOpacity>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity onPress={() => setShowExport(true)}>
-              <Image
-                source={require("../../assets/export.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                  marginEnd: width / 7,
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setShowTaskOption(true)}>
-              <Image
-                source={require("../../assets/newtask.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            onPress={() => setShowExport(true)}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <Image
+              source={require("../../assets/export.png")}
+              style={{
+                height: height / 10,
+                width: width / 10,
+                resizeMode: "contain",
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <Text
           style={{
@@ -326,11 +403,11 @@ export default function TaskDetails(props) {
             color: colors.GRAY,
             fontWeight: "300",
             textAlign: "center",
-            marginVertical: height / 200,
             marginBottom: height / 40,
+            marginTop: -20,
           }}
         >
-          TASK TITLE
+          REQUEST TITLE
         </Text>
         <Surface
           elevation={1}
@@ -338,7 +415,6 @@ export default function TaskDetails(props) {
             backgroundColor: "white",
             height: height / 1.9,
             marginVertical: 5,
-            marginHorizontal: height / 180,
             paddingHorizontal: height / 50,
             paddingVertical: height / 50,
           }}
@@ -353,13 +429,71 @@ export default function TaskDetails(props) {
                   marginEnd: height / 60,
                 }}
               >
-                Starts:
+                Sent By:
               </Text>
               <Text
                 style={{
                   fontSize: height / 65,
                   color: colors.GRAY,
                   fontWeight: "300",
+                }}
+              >
+                Musa Raza
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 12,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: height / 65,
+                  color: colors.GRAY,
+                  fontWeight: "300",
+                  marginEnd: height / 31,
+                }}
+              >
+                Start Date:
+              </Text>
+              <Text
+                style={{
+                  fontSize: height / 65,
+                  color: colors.GRAY,
+                  fontWeight: "300",
+                  flex: 1,
+                }}
+              >
+                {moment(Date.now()).format("lll")}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 12,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: height / 65,
+                  color: colors.GRAY,
+                  fontWeight: "300",
+                  marginEnd: height / 25,
+                }}
+              >
+                End Date:
+              </Text>
+              <Text
+                style={{
+                  fontSize: height / 65,
+                  color: colors.GRAY,
+                  fontWeight: "300",
+                  flex: 1,
                 }}
               >
                 {moment(Date.now()).format("lll")}
@@ -381,7 +515,7 @@ export default function TaskDetails(props) {
                   marginEnd: height / 60,
                 }}
               >
-                Location:
+                Request Type:
               </Text>
               <Text
                 style={{
@@ -390,78 +524,12 @@ export default function TaskDetails(props) {
                   fontWeight: "300",
                   flex: 1,
                 }}
-              >
-                ABC City, street 123 Pakistan
-              </Text>
+              ></Text>
             </View>
 
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 12,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 65,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                  marginEnd: height / 60,
-                }}
-              >
-                Assigned To:
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 65,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                  flex: 1,
-                }}
-              >
-                Musa Raza
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 12,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 65,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                  marginEnd: height / 60,
-                }}
-              >
-                Descriptions:
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 65,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                  textAlign: "justify",
-                }}
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginTop: 12,
+                marginTop: height / 20,
               }}
             >
               <Text
@@ -501,28 +569,24 @@ export default function TaskDetails(props) {
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            paddingHorizontal: 14,
+            paddingHorizontal: 10,
           }}
         >
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("EditTask")}
-          >
+          <TouchableOpacity onPress={() => setShowDenied(true)}>
             <Image
-              source={require("../../assets/editBtn.png")}
+              source={require("../../assets/backbig.png")}
               style={{
-                height: height / 6.5,
+                height: height / 10.5,
                 width: height / 6.5,
                 resizeMode: "contain",
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("StartTask")}
-          >
+          <TouchableOpacity onPress={() => setShowApprove(true)}>
             <Image
-              source={require("../../assets/startTask.png")}
+              source={require("../../assets/resubmit.png")}
               style={{
-                height: height / 6.5,
+                height: height / 10.5,
                 width: height / 6.5,
                 resizeMode: "contain",
               }}

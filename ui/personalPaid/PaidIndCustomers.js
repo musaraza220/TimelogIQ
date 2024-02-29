@@ -23,13 +23,20 @@ import {
   CollapseBody,
 } from "accordion-collapse-react-native";
 import { colors } from "../../assets/colors";
+import {
+  Avatar,
+  Badge,
+  Divider,
+  Surface,
+  Text,
+  useTheme,
+} from "react-native-paper";
+import moment from "moment";
 import { Overlay } from "react-native-elements";
 
-import { Avatar, Divider, Surface, Text, useTheme } from "react-native-paper";
-import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function Tasks(props) {
+export default function PaidIndCustomers(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -46,17 +53,17 @@ export default function Tasks(props) {
   const [loading, setLoading] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-  const [showStart, setShowStart] = useState(false);
+  const [showFilterMbl, setShowFilterMbl] = useState(false);
   const { styles } = useStyle();
   const [listData, setListData] = useState([
     {
       id: 1,
-      title: "Task Title 1",
+      title: "Company Name",
       //date: new Date.now(),
     },
     {
       id: 2,
-      title: "Task Title 2",
+      title: "Company Name 1",
       //date: new Date.now(),
     },
   ]);
@@ -109,7 +116,7 @@ export default function Tasks(props) {
           marginStart: 30,
         }}
       >
-        There are no tasks.
+        Uh Oh! Your Customer List is Empty.
       </Text>
     );
   };
@@ -211,87 +218,54 @@ export default function Tasks(props) {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.filterText}>All</Text>
+          <Text style={[styles.filterText, { fontWeight: "bold" }]}>All</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>Completed</Text>
+          <Text style={styles.filterText}>Active</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>In Progress</Text>
-          <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>New</Text>
-          <Divider style={{ backgroundColor: "gray" }} />
+          <Text style={styles.filterText}>Open</Text>
         </View>
       </Overlay>
     );
   };
 
-  const StartPOPUP = () => {
+  const FilterPOPUPMobl = () => {
     return (
       <Overlay
-        visible={showStart}
+        visible={showFilterMbl}
         overlayStyle={{
           backgroundColor: theme.colors.background,
         }}
       >
         <View style={{ padding: 10, width: height / 5 }}>
-          <View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Text
               style={{
-                fontSize: height / 50,
+                fontSize: height / 60,
                 color: colors.GRAY,
-                fontWeight: "400",
+                fontWeight: "bold",
                 marginVertical: height / 200,
-                textAlign: "center",
               }}
             >
-              START TASK
+              SELECT
             </Text>
-            <Text
-              style={{
-                fontSize: height / 70,
-                color: colors.GRAY,
-                fontWeight: "400",
-                marginTop: height / 50,
-                textAlign: "center",
-              }}
-            >
-              Are you sure you want to start the task?
-            </Text>
-            {/* <TouchableOpacity onPress={() => setShowStart(false)}>
+            <TouchableOpacity onPress={() => setShowFilterMbl(false)}>
               <MaterialCommunityIcons
                 name="close-circle-outline"
                 color={colors.GRAY}
                 size={height / 40}
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
 
-          <View style={{ alignItems: "center", marginTop: 13 }}>
-            <TouchableOpacity
-              onPress={() => [
-                props.navigation.navigate("StartTask"),
-                setShowStart(false),
-              ]}
-            >
-              <Image
-                source={require("../../assets/Startsmall.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShowStart(false)}>
-              <Image
-                source={require("../../assets/cancelbtn.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-          </View>
+          <Text style={styles.filterText}>Wrok Phone</Text>
+          <Divider style={{ backgroundColor: "gray" }} />
+          <Text style={styles.filterText}>Mobile #</Text>
         </View>
       </Overlay>
     );
@@ -358,7 +332,7 @@ export default function Tasks(props) {
       >
         <ExportPOPUP />
         <FilterPOPUP />
-        <StartPOPUP />
+        <FilterPOPUPMobl />
         <View
           style={{
             flexDirection: "row",
@@ -366,17 +340,20 @@ export default function Tasks(props) {
             alignItems: "center",
           }}
         >
-          <View>
-            <TouchableOpacity onPress={() => setShowFilter(true)}>
-              <Image
-                source={require("../../assets/filter.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setShowFilter(true)}
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../assets/filter.png")}
+              style={{
+                height: height / 11,
+                width: width / 11,
+                resizeMode: "contain",
+              }}
+            />
             <Text
               style={{
                 fontSize: height / 65,
@@ -387,7 +364,19 @@ export default function Tasks(props) {
             >
               All
             </Text>
-          </View>
+          </TouchableOpacity>
+          {/* <TouchableOpacity
+            onPress={() => props.navigation.navigate("RequestsAdmin")}
+          >
+            <Image
+              source={require("../../assets/Request.png")}
+              style={{
+                height: height / 27.5,
+                width: height / 7.5,
+                resizeMode: "contain",
+              }}
+            />
+          </TouchableOpacity> */}
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity onPress={() => setShowExport(true)}>
@@ -403,7 +392,7 @@ export default function Tasks(props) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("NewTask")}
+              onPress={() => props.navigation.navigate("PaidIndAddCustomer")}
             >
               <Image
                 source={require("../../assets/newtask.png")}
@@ -427,8 +416,9 @@ export default function Tasks(props) {
             marginTop: -5,
           }}
         >
-          TASK LIST
+          CUSTOMERS
         </Text>
+
         <View
           style={[
             styles.txtContainer,
@@ -467,7 +457,7 @@ export default function Tasks(props) {
         <FlatList
           data={listData}
           ListEmptyComponent={EmptyList()}
-          style={{ marginTop: height / 40 }}
+          style={{ marginTop: height / 70 }}
           renderItem={({ item }) => {
             return (
               <Collapse>
@@ -497,8 +487,7 @@ export default function Tasks(props) {
                           style={{
                             height: height / 35,
                             width: 5,
-                            borderColor: colors.MAIN,
-                            borderWidth: 0.8,
+                            backgroundColor: colors.green,
                           }}
                         ></View>
                         <Text
@@ -512,18 +501,14 @@ export default function Tasks(props) {
                         </Text>
                       </View>
 
-                      <Text
+                      <Image
+                        source={require("../../assets/Active.png")}
                         style={{
-                          fontSize: height / 80,
-                          color: colors.GRAY,
-                          fontWeight: "300",
-                          position: "absolute",
-                          top: -height / 80,
-                          right: 1,
+                          height: height / 43.5,
+                          width: height / 14.5,
+                          resizeMode: "contain",
                         }}
-                      >
-                        {moment(Date.now()).format("lll")}
-                      </Text>
+                      />
                     </View>
                   </Surface>
                 </CollapseHeader>
@@ -532,22 +517,109 @@ export default function Tasks(props) {
                     elevation={1}
                     style={{
                       backgroundColor: "white",
-                      height: height / 15,
                       marginHorizontal: height / 180,
                       justifyContent: "center",
                       marginTop: -10,
+                      paddingVertical: height / 60,
                     }}
                   >
                     <View
                       style={{
                         flexDirection: "row",
-                        justifyContent: "space-between",
-                        paddingHorizontal: 0,
+                        marginHorizontal: height / 40,
                       }}
                     >
-                      <TouchableOpacity onPress={() => setShowStart(true)}>
+                      <Text
+                        style={{
+                          fontSize: height / 80,
+                          fontWeight: "bold",
+                          marginStart: 8,
+                        }}
+                      >
+                        Email:
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: height / 80,
+                          fontWeight: "300",
+                          marginStart: 10,
+                        }}
+                      >
+                        musaraza67@gmail.com
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        marginHorizontal: height / 40,
+                        marginTop: 13,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: height / 80,
+                          fontWeight: "bold",
+                          marginStart: 8,
+                        }}
+                      >
+                        Phone No:
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: height / 80,
+                          fontWeight: "300",
+                          marginStart: 8,
+                        }}
+                      >
+                        +923024058011
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 15,
+                      }}
+                    >
+                      <TouchableOpacity onPress={() => setShowFilterMbl(true)}>
                         <Image
-                          source={require("../../assets/Startbtn.png")}
+                          source={require("../../assets/call.png")}
+                          style={{
+                            height: height / 30.5,
+                            width: height / 9.5,
+                            resizeMode: "contain",
+                          }}
+                        />
+                      </TouchableOpacity>
+
+                      <Image
+                        source={require("../../assets/emailicon.png")}
+                        style={{
+                          height: height / 30.5,
+                          width: height / 30.5,
+                          resizeMode: "contain",
+                          marginStart: -10,
+                        }}
+                      />
+                    </View>
+
+                    <View
+                      style={{
+                        position: "absolute",
+                        right: 0,
+                        bottom: height / 70,
+                      }}
+                    >
+                      <TouchableOpacity
+                        style={{ alignSelf: "center" }}
+                        onPress={() =>
+                          props.navigation.navigate("TaskDetailsAdmin")
+                        }
+                      >
+                        <Image
+                          source={require("../../assets/tasksbtn.png")}
                           style={{
                             height: height / 27.5,
                             width: height / 7.5,
@@ -556,7 +628,10 @@ export default function Tasks(props) {
                         />
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => props.navigation.navigate("TaskDetails")}
+                        style={{ alignSelf: "center", marginTop: 5 }}
+                        onPress={() =>
+                          props.navigation.navigate("PaidIndViewCompany")
+                        }
                       >
                         <Image
                           source={require("../../assets/View.png")}
@@ -617,8 +692,7 @@ const useStyle = () => {
       fontSize: height / 60,
       color: colors.GRAY,
       fontWeight: "400",
-      marginVertical: height / 200,
-      marginTop: 10,
+      marginVertical: height / 100,
       paddingStart: 10,
     },
   });

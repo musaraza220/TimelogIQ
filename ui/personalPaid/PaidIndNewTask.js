@@ -10,7 +10,6 @@ import {
   TextInput,
   ScrollView,
   ImageBackground,
-  Switch,
 } from "react-native";
 import {
   MaterialCommunityIcons,
@@ -21,9 +20,11 @@ import {
 import { colors } from "../../assets/colors";
 import { Avatar, Text, useTheme } from "react-native-paper";
 import moment from "moment";
+import { Overlay } from "react-native-elements";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function AddEmployeeAdmin(props) {
+export default function PaidIndNewTask(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -38,8 +39,8 @@ export default function AddEmployeeAdmin(props) {
   const [pwdIcon, setPwdIcon] = useState("eye");
   const [visibility, setVisivility] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [admin, setAdmin] = useState(false);
-  const { styles } = useStyle();
+  const [showCancel, setShowCancel] = useState(false);
+
   useEffect(() => {
     const unsubscribe = props.navigation.addListener("focus", () => {
       getSaveData();
@@ -87,6 +88,71 @@ export default function AddEmployeeAdmin(props) {
     }
   };
   const theme = useTheme();
+
+  const CancelPopUp = () => {
+    return (
+      <Overlay
+        visible={showCancel}
+        overlayStyle={{
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <View style={{ padding: 10, width: height / 5 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: height / 60,
+                color: colors.GRAY,
+                fontWeight: "400",
+                marginVertical: height / 200,
+                textAlign: "center",
+              }}
+            >
+              Are you sure you want to cancel?
+            </Text>
+            {/* <TouchableOpacity onPress={() => setShowCancel(false)}>
+              <MaterialCommunityIcons
+                name="close-circle-outline"
+                color={colors.GRAY}
+                size={height / 40}
+              />
+            </TouchableOpacity> */}
+          </View>
+
+          <View style={{ alignItems: "center", marginTop: 13 }}>
+            <TouchableOpacity
+              onPress={() => [setShowCancel(false), props.navigation.goBack()]}
+            >
+              <Image
+                source={require("../../assets/Yes.png")}
+                style={{
+                  height: height / 16.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => [setShowCancel(false)]}>
+              <Image
+                source={require("../../assets/No.png")}
+                style={{
+                  height: height / 16.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
+    );
+  };
   return (
     <View style={[{ backgroundColor: theme.colors.background }]}>
       <StatusBar style="auto" />
@@ -149,19 +215,25 @@ export default function AddEmployeeAdmin(props) {
           },
         ]}
       >
-        <TouchableOpacity
-          style={{ marginTop: 14 }}
-          onPress={() => props.navigation.goBack()}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          <Image
-            source={require("../../assets/back.png")}
-            style={{
-              height: height / 25,
-              width: width / 10,
-              resizeMode: "contain",
-            }}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Image
+              source={require("../../assets/back.png")}
+              style={{
+                height: height / 11,
+                width: width / 11,
+                resizeMode: "contain",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <CancelPopUp />
         <Text
           style={{
             fontSize: height / 45,
@@ -169,23 +241,13 @@ export default function AddEmployeeAdmin(props) {
             fontWeight: "300",
             textAlign: "center",
             marginVertical: height / 40,
-            marginTop: -8,
+            marginTop: -height / 50,
           }}
         >
-          ADD EMPLOYEE
+          ADD TASK
         </Text>
+
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Avatar.Image
-            size={height / 10}
-            source={require("../../assets/profPic.png")}
-            style={{
-              backgroundColor: colors.grays,
-              borderWidth: 1,
-              borderColor: colors.MAIN,
-              alignSelf: "center",
-              marginBottom: height / 30,
-            }}
-          />
           <View
             style={[
               styles.txtContainer,
@@ -207,119 +269,7 @@ export default function AddEmployeeAdmin(props) {
               value={email}
               placeholderTextColor={colors.GRAY}
               cursorColor="#fff"
-              placeholder="Name"
-              autoCorrect={false}
-              returnKeyType="done"
-            />
-          </View>
-
-          <View
-            style={[
-              styles.txtContainer,
-              {
-                borderWidth: 0.5,
-                borderRadius: 30,
-                borderColor: colors.textColor1,
-                marginTop: 16,
-              },
-            ]}
-          >
-            <TextInput
-              style={{
-                paddingHorizontal: 16,
-                fontSize: height / 55,
-              }}
-              onChangeText={(val) => {
-                setEmail(val), setError("");
-              }}
-              value={email}
-              placeholderTextColor={colors.GRAY}
-              cursorColor="#fff"
-              placeholder="Email Address"
-              autoCorrect={false}
-              returnKeyType="done"
-            />
-          </View>
-
-          <View
-            style={[
-              styles.txtContainer,
-              {
-                borderWidth: 0.5,
-                borderRadius: 30,
-                borderColor: colors.textColor1,
-                marginTop: 16,
-              },
-            ]}
-          >
-            <TextInput
-              style={{
-                paddingHorizontal: 16,
-                fontSize: height / 55,
-              }}
-              onChangeText={(val) => {
-                setEmail(val), setError("");
-              }}
-              value={email}
-              placeholderTextColor={colors.GRAY}
-              cursorColor="#fff"
-              placeholder="Phone Number"
-              autoCorrect={false}
-              returnKeyType="done"
-            />
-          </View>
-
-          <View
-            style={[
-              styles.txtContainer,
-              {
-                borderWidth: 0.5,
-                borderRadius: 30,
-                borderColor: colors.textColor1,
-                marginTop: 16,
-              },
-            ]}
-          >
-            <TextInput
-              style={{
-                paddingHorizontal: 16,
-                fontSize: height / 55,
-              }}
-              onChangeText={(val) => {
-                setEmail(val), setError("");
-              }}
-              value={email}
-              placeholderTextColor={colors.GRAY}
-              cursorColor="#fff"
-              placeholder="Work Address"
-              autoCorrect={false}
-              returnKeyType="done"
-            />
-          </View>
-
-          <View
-            style={[
-              styles.txtContainer,
-              {
-                borderWidth: 0.5,
-                borderRadius: 30,
-                borderColor: colors.textColor1,
-                marginTop: 16,
-              },
-            ]}
-          >
-            <TextInput
-              style={{
-                paddingHorizontal: 16,
-                fontSize: height / 55,
-              }}
-              onChangeText={(val) => {
-                setEmail(val), setError("");
-              }}
-              value={email}
-              placeholderTextColor={colors.GRAY}
-              cursorColor="#fff"
-              placeholder="Position"
+              placeholder="Task Name"
               autoCorrect={false}
               returnKeyType="done"
             />
@@ -332,6 +282,7 @@ export default function AddEmployeeAdmin(props) {
                 borderRadius: 30,
                 borderColor: colors.textColor1,
                 marginTop: 16,
+                height: height / 8,
                 padding: 10,
               },
             ]}
@@ -347,76 +298,67 @@ export default function AddEmployeeAdmin(props) {
               value={email}
               placeholderTextColor={colors.GRAY}
               cursorColor="#fff"
-              placeholder="Schedule"
+              placeholder="Description"
+              autoCorrect={false}
+              returnKeyType="done"
+              multiline
+            />
+          </View>
+
+          <View
+            style={[
+              styles.txtContainer,
+              {
+                borderWidth: 0.5,
+                borderRadius: 30,
+                borderColor: colors.textColor1,
+                marginTop: 16,
+              },
+            ]}
+          >
+            <TextInput
+              style={{
+                paddingHorizontal: 16,
+                fontSize: height / 55,
+              }}
+              onChangeText={(val) => {
+                setEmail(val), setError("");
+              }}
+              value={email}
+              placeholderTextColor={colors.GRAY}
+              cursorColor="#fff"
+              placeholder="Start Date"
               autoCorrect={false}
               returnKeyType="done"
             />
-            <View
-              style={[styles.headerSwitchStyle, { flexDirection: "column" }]}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginBottom: 10,
-                  marginStart: 5,
-                }}
-              >
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    color: colors.GRAY,
-                    paddingHorizontal: height / 90,
-                    paddingVertical: height / 90,
-                    borderWidth: 0.5,
-                    borderColor: colors.GRAY,
-                  }}
-                >
-                  00:00 AM
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    color: colors.GRAY,
-                    paddingHorizontal: height / 90,
-                    paddingVertical: height / 90,
-                  }}
-                >
-                  to
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    color: colors.GRAY,
-                    paddingHorizontal: height / 90,
-                    paddingVertical: height / 90,
-                    borderWidth: 0.5,
-                    borderColor: colors.GRAY,
-                  }}
-                >
-                  00:00 AM
-                </Text>
-              </View>
+          </View>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: 10,
-                  marginStart: 5,
-                }}
-              >
-                <Text style={styles.blueBox}>Mon</Text>
-                <Text style={styles.grayBox}>Tue</Text>
-                <Text style={styles.grayBox}>Wed</Text>
-                <Text style={styles.blueBox}>Thu</Text>
-                <Text style={styles.grayBox}>Fri</Text>
-                <Text style={styles.grayBox}>Sat</Text>
-                <Text style={styles.grayBox}>Sun</Text>
-              </View>
-            </View>
-
-            <View style={{ alignItems: "flex-end", marginTop: 15 }}>
-              <MaterialCommunityIcons name="plus" size={height / 30} />
-            </View>
+          <View
+            style={[
+              styles.txtContainer,
+              {
+                borderWidth: 0.5,
+                borderRadius: 30,
+                borderColor: colors.textColor1,
+                marginTop: 16,
+              },
+            ]}
+          >
+            <TextInput
+              style={{
+                paddingHorizontal: 16,
+                fontSize: height / 55,
+              }}
+              onChangeText={(val) => {
+                setEmail(val), setError("");
+              }}
+              value={email}
+              placeholderTextColor={colors.GRAY}
+              cursorColor="#fff"
+              placeholder="Start Time"
+              autoCorrect={false}
+              returnKeyType="done"
+            />
           </View>
           <Text
             style={{
@@ -617,192 +559,6 @@ export default function AddEmployeeAdmin(props) {
             </View>
           </View>
           <View
-            style={{
-              marginVertical: height / 40,
-              marginHorizontal: 10,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Admin
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Task (Edit)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Task (Edit Request)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Task (Delete)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Employee (Add)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Employee (Edit)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Employee (Delete)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Attendance (Add)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Attendance (Edit)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Attendance (Delete)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Customer (Add)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Customer (Edit)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-            <View style={styles.headerSwitchStyle}>
-              <Text numberOfLines={1} style={styles.persTxtStyle}>
-                Customer (Delete)
-              </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "lightgreen" }}
-                thumbColor={admin ? "white" : "#f4f3f4"}
-                ios_backgroundColor="lightgray"
-                onValueChange={setAdmin}
-                value={admin}
-                style={{ alignSelf: "flex-end" }}
-              />
-            </View>
-          </View>
-          <View
             style={[
               {
                 borderWidth: 0.5,
@@ -833,6 +589,29 @@ export default function AddEmployeeAdmin(props) {
           </View>
 
           <View
+            style={[
+              {
+                marginTop: 16,
+                padding: 10,
+                paddingStart: 25,
+                flexDirection: "row",
+              },
+            ]}
+          >
+            <Text
+              style={{
+                fontSize: height / 58,
+                color: colors.GRAY,
+                fontWeight: "400",
+                marginEnd: 10,
+              }}
+            >
+              Attachments
+            </Text>
+            <Entypo name="attachment" color={"gray"} size={height / 55} />
+          </View>
+
+          <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
@@ -840,7 +619,7 @@ export default function AddEmployeeAdmin(props) {
               marginBottom: height / 3,
             }}
           >
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <TouchableOpacity onPress={() => setShowCancel(true)}>
               <Image
                 source={require("../../assets/cancelbtn.png")}
                 style={{
@@ -867,64 +646,36 @@ export default function AddEmployeeAdmin(props) {
   );
 }
 
-const useStyle = () => {
-  const { height, width } = useWindowDimensions();
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    centerItems: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    centerText: {
-      textAlign: "center",
-      color: colors.WHITE,
-      fontSize: 22,
-    },
-    btnStyle: {
-      backgroundColor: colors.MAIN,
-      padding: 50,
-    },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  centerItems: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  centerText: {
+    textAlign: "center",
+    color: colors.WHITE,
+    fontSize: 22,
+  },
+  btnStyle: {
+    backgroundColor: colors.MAIN,
+    padding: 50,
+  },
 
-    txtBack: {
-      marginBottom: 10,
-      overflow: "hidden",
-      resizeMode: "contain",
-      borderRadius: 10,
-    },
-    txtContainer: {
-      padding: 7,
-      paddingVertical: 13,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-    persTxtStyle: {
-      fontSize: height / 55,
-      flex: 1,
-      fontWeight: "300",
-    },
-    headerSwitchStyle: {
-      flexDirection: "row",
-      marginTop: height / 50,
-    },
-    grayBox: {
-      paddingHorizontal: height / 110,
-      paddingVertical: height / 110,
-      color: "gray",
-      borderWidth: 0.5,
-      borderColor: colors.GRAY,
-      marginEnd: 10,
-    },
-    blueBox: {
-      paddingHorizontal: height / 110,
-      paddingVertical: height / 110,
-      color: "white",
-      backgroundColor: colors.MAIN,
-      marginEnd: 10,
-    },
-  });
-  return { styles };
-};
+  txtBack: {
+    marginBottom: 10,
+    overflow: "hidden",
+    resizeMode: "contain",
+    borderRadius: 10,
+  },
+  txtContainer: {
+    padding: 7,
+    paddingVertical: 13,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});

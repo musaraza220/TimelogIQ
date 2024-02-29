@@ -172,84 +172,87 @@ export default function EmpHome(props) {
           </TouchableOpacity>
         </View>
 
-        <View
+        <ImageBackground
+          source={require("../../assets/header.png")}
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: height / 50,
-            paddingStart: height / 70,
+            width: width / 1.11,
+            height: height / 10,
+            paddingTop: height / 90,
+            paddingHorizontal: 13,
           }}
         >
-          <Text
+          <View
             style={{
-              fontSize: height / 60,
-              color: colors.GRAY,
-              fontWeight: "300",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            UPCOMING
-          </Text>
-          <Text
+            <Text
+              style={{
+                fontSize: height / 60,
+                color: "white",
+                fontWeight: "300",
+              }}
+            >
+              SCHEDULED
+            </Text>
+            <Text
+              style={{
+                fontSize: height / 60,
+                color: "white",
+                fontWeight: "300",
+              }}
+            >
+              IN-PROGRESS
+            </Text>
+            <Text
+              style={{
+                fontSize: height / 60,
+                color: "white",
+                fontWeight: "300",
+              }}
+            >
+              NEW
+            </Text>
+          </View>
+          <View
             style={{
-              fontSize: height / 60,
-              color: colors.GRAY,
-              fontWeight: "300",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            IN-PROGRESS
-          </Text>
-          <Text
-            style={{
-              fontSize: height / 60,
-              color: colors.GRAY,
-              fontWeight: "300",
-            }}
-          >
-            NEW
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderColor: colors.textColor,
-            borderWidth: 0.5,
-            marginTop: height / 70,
-            paddingHorizontal: height / 35,
-            paddingVertical: height / 90,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: height / 18,
-              color: colors.textColor,
-              fontWeight: "700",
-            }}
-          >
-            4
-          </Text>
-          <Text
-            style={{
-              fontSize: height / 18,
-              color: colors.textColor,
-              fontWeight: "700",
-            }}
-          >
-            3
-          </Text>
-          <Text
-            style={{
-              fontSize: height / 18,
-              color: colors.textColor,
-              fontWeight: "700",
-            }}
-          >
-            2
-          </Text>
-        </View>
+            <Text
+              style={{
+                fontSize: height / 18,
+                color: "white",
+                fontWeight: "700",
+                marginStart: 10,
+              }}
+            >
+              4
+            </Text>
+            <Text
+              style={{
+                fontSize: height / 18,
+                color: "white",
+                fontWeight: "700",
+              }}
+            >
+              3
+            </Text>
+            <Text
+              style={{
+                fontSize: height / 18,
+                color: "white",
+                fontWeight: "700",
+              }}
+            >
+              2
+            </Text>
+          </View>
+        </ImageBackground>
 
         <View
           style={{

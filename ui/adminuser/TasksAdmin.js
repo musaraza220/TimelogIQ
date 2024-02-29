@@ -402,7 +402,7 @@ export default function TasksAdmin(props) {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setShowExport(true)}>
             <Image
-              source={require("../../assets/Sort.png")}
+              source={require("../../assets/sort.png")}
               style={{
                 height: height / 10,
                 width: width / 10,
@@ -726,21 +726,39 @@ export default function TasksAdmin(props) {
                         marginHorizontal: height / 32,
                       }}
                     />
-                    <TouchableOpacity
-                      style={{ alignSelf: "center" }}
-                      onPress={() =>
-                        props.navigation.navigate("TaskDetailsAdmin")
-                      }
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      <Image
-                        source={require("../../assets/View.png")}
-                        style={{
-                          height: height / 27.5,
-                          width: height / 7.5,
-                          resizeMode: "contain",
-                        }}
-                      />
-                    </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => props.navigation.navigate("StartTask")}
+                      >
+                        <Image
+                          source={require("../../assets/Startbtn.png")}
+                          style={{
+                            height: height / 27.5,
+                            width: height / 7.5,
+                            resizeMode: "contain",
+                          }}
+                        />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          props.navigation.navigate("TaskDetailsAdmin")
+                        }
+                      >
+                        <Image
+                          source={require("../../assets/View.png")}
+                          style={{
+                            height: height / 27.5,
+                            width: height / 7.5,
+                            resizeMode: "contain",
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </Surface>
                 </CollapseBody>
               </Collapse>

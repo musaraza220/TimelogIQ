@@ -21,6 +21,7 @@ import { colors } from "../../assets/colors";
 import { Avatar, Text, useTheme } from "react-native-paper";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Overlay } from "react-native-elements";
 // import { useTheme } from "@react-navigation/native";
 export default function Attendnace(props) {
   const { height, width } = useWindowDimensions();
@@ -37,6 +38,7 @@ export default function Attendnace(props) {
   const [pwdIcon, setPwdIcon] = useState("eye");
   const [visibility, setVisivility] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showApprove, setShowApprove] = useState(false);
   useEffect(() => {
     const unsubscribe = props.navigation.addListener("focus", () => {
       getSaveData();
@@ -82,6 +84,87 @@ export default function Attendnace(props) {
       setVisivility(true);
       setPwdIcon("eye");
     }
+  };
+
+  const ApprovePOPUP = () => {
+    return (
+      <Overlay
+        visible={showApprove}
+        overlayStyle={{
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <View style={{ padding: 10, width: height / 3 }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text
+              style={{
+                fontSize: height / 60,
+                color: colors.GRAY,
+                fontWeight: "500",
+                marginVertical: height / 200,
+              }}
+            >
+              ADD BREAK
+            </Text>
+            <TouchableOpacity onPress={() => setShowApprove(false)}>
+              <MaterialCommunityIcons
+                name="close-circle-outline"
+                color={colors.GRAY}
+                size={height / 40}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={[
+              {
+                borderWidth: 0.5,
+                borderColor: colors.textColor1,
+                marginTop: 10,
+                height: height / 8,
+                padding: 3,
+              },
+            ]}
+          >
+            <TextInput
+              style={{
+                paddingHorizontal: 10,
+                fontSize: height / 63,
+              }}
+              onChangeText={(val) => {
+                setEmail(val), setError("");
+              }}
+              value={email}
+              cursorColor="#fff"
+              placeholder="Add Notes"
+              autoCorrect={false}
+              returnKeyType="done"
+              multiline
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <TouchableOpacity onPress={() => setShowApprove(false)}>
+              <Image
+                source={require("../../assets/startTask.png")}
+                style={{
+                  height: height / 13.5,
+                  width: height / 6.8,
+                  resizeMode: "contain",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Overlay>
+    );
   };
   const theme = useTheme();
   return (
@@ -142,6 +225,7 @@ export default function Attendnace(props) {
           },
         ]}
       >
+        <ApprovePOPUP />
         <View
           style={{
             alignItems: "center",
@@ -166,7 +250,9 @@ export default function Attendnace(props) {
             paddingHorizontal: 0,
           }}
         >
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("AttendanceHistoryEmp")}
+          >
             <Image
               source={require("../../assets/historybtn.png")}
               style={{
@@ -176,9 +262,11 @@ export default function Attendnace(props) {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Requests")}
+          >
             <Image
-              source={require("../../assets/savebtn.png")}
+              source={require("../../assets/Request.png")}
               style={{
                 height: height / 19.5,
                 width: height / 6.5,
@@ -196,6 +284,24 @@ export default function Attendnace(props) {
             padding: 20,
           }}
         >
+          <TouchableOpacity
+            onPress={() => setShowApprove(true)}
+            style={{
+              position: "absolute",
+              right: -30,
+              top: 14,
+            }}
+          >
+            <Image
+              source={require("../../assets/break.png")}
+              style={{
+                height: height / 19.5,
+                width: height / 6.5,
+                resizeMode: "contain",
+              }}
+            />
+          </TouchableOpacity>
+
           <Text
             style={{
               fontSize: height / 60,

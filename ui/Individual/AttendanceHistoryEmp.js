@@ -23,13 +23,20 @@ import {
   CollapseBody,
 } from "accordion-collapse-react-native";
 import { colors } from "../../assets/colors";
+import {
+  Avatar,
+  Badge,
+  Divider,
+  Surface,
+  Text,
+  useTheme,
+} from "react-native-paper";
 import { Overlay } from "react-native-elements";
-
-import { Avatar, Divider, Surface, Text, useTheme } from "react-native-paper";
+import CalendarStrip from "react-native-calendar-strip";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function Tasks(props) {
+export default function AttendanceHistoryEmp(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -46,18 +53,22 @@ export default function Tasks(props) {
   const [loading, setLoading] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-  const [showStart, setShowStart] = useState(false);
   const { styles } = useStyle();
+
   const [listData, setListData] = useState([
     {
       id: 1,
-      title: "Task Title 1",
-      //date: new Date.now(),
+      title: "Musa Raza",
+      from: "CLOCKED IN",
+      color: colors.GREENTYPE,
+      out: "--:--",
     },
     {
       id: 2,
-      title: "Task Title 2",
-      //date: new Date.now(),
+      title: "Employee 2",
+      from: "CLOCKED IN",
+      color: colors.BLUETYPE,
+      out: "11:30 pm",
     },
   ]);
   useEffect(() => {
@@ -213,85 +224,12 @@ export default function Tasks(props) {
 
           <Text style={styles.filterText}>All</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>Completed</Text>
+          <Text style={styles.filterText}>Open</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>In Progress</Text>
+          <Text style={styles.filterText}>Approved</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>New</Text>
+          <Text style={styles.filterText}>Denied</Text>
           <Divider style={{ backgroundColor: "gray" }} />
-        </View>
-      </Overlay>
-    );
-  };
-
-  const StartPOPUP = () => {
-    return (
-      <Overlay
-        visible={showStart}
-        overlayStyle={{
-          backgroundColor: theme.colors.background,
-        }}
-      >
-        <View style={{ padding: 10, width: height / 5 }}>
-          <View>
-            <Text
-              style={{
-                fontSize: height / 50,
-                color: colors.GRAY,
-                fontWeight: "400",
-                marginVertical: height / 200,
-                textAlign: "center",
-              }}
-            >
-              START TASK
-            </Text>
-            <Text
-              style={{
-                fontSize: height / 70,
-                color: colors.GRAY,
-                fontWeight: "400",
-                marginTop: height / 50,
-                textAlign: "center",
-              }}
-            >
-              Are you sure you want to start the task?
-            </Text>
-            {/* <TouchableOpacity onPress={() => setShowStart(false)}>
-              <MaterialCommunityIcons
-                name="close-circle-outline"
-                color={colors.GRAY}
-                size={height / 40}
-              />
-            </TouchableOpacity> */}
-          </View>
-
-          <View style={{ alignItems: "center", marginTop: 13 }}>
-            <TouchableOpacity
-              onPress={() => [
-                props.navigation.navigate("StartTask"),
-                setShowStart(false),
-              ]}
-            >
-              <Image
-                source={require("../../assets/Startsmall.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShowStart(false)}>
-              <Image
-                source={require("../../assets/cancelbtn.png")}
-                style={{
-                  height: height / 16.5,
-                  width: height / 6.8,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-          </View>
         </View>
       </Overlay>
     );
@@ -310,7 +248,7 @@ export default function Tasks(props) {
           paddingTop: height / 10,
         }}
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        {/* <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={{ fontSize: height / 65, color: "white" }}>
             {greetMsg}
           </Text>
@@ -329,7 +267,7 @@ export default function Tasks(props) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Avatar.Image
               size={height / 34}
-              source={require("../../assets/profPic.png")}
+              source={require("../../../assets/profPic.png")}
               style={{ backgroundColor: "white" }}
             />
             <Text
@@ -344,7 +282,7 @@ export default function Tasks(props) {
             color={"white"}
             size={height / 43}
           />
-        </View>
+        </View> */}
       </ImageBackground>
 
       <View
@@ -352,13 +290,16 @@ export default function Tasks(props) {
           {
             paddingHorizontal: width / 20,
             width: width,
-            height: height / 1.2,
+            height: height / 1,
+            backgroundColor: "white",
+            marginTop: -height / 9,
+            borderRadius: 30,
+            zIndex: 1,
           },
         ]}
       >
         <ExportPOPUP />
         <FilterPOPUP />
-        <StartPOPUP />
         <View
           style={{
             flexDirection: "row",
@@ -366,55 +307,27 @@ export default function Tasks(props) {
             alignItems: "center",
           }}
         >
-          <View>
-            <TouchableOpacity onPress={() => setShowFilter(true)}>
-              <Image
-                source={require("../../assets/filter.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-            <Text
+          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <Image
+              source={require("../../assets/back.png")}
               style={{
-                fontSize: height / 65,
-                fontWeight: "400",
-                textAlign: "center",
-                marginTop: -height / 80,
+                height: height / 11,
+                width: width / 11,
+                resizeMode: "contain",
               }}
-            >
-              All
-            </Text>
-          </View>
+            />
+          </TouchableOpacity>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity onPress={() => setShowExport(true)}>
-              <Image
-                source={require("../../assets/export.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                  marginEnd: width / 7,
-                }}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("NewTask")}
-            >
-              <Image
-                source={require("../../assets/newtask.png")}
-                style={{
-                  height: height / 11,
-                  width: width / 11,
-                  resizeMode: "contain",
-                }}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => setShowExport(true)}>
+            <Image
+              source={require("../../assets/export.png")}
+              style={{
+                height: height / 11,
+                width: width / 11,
+                resizeMode: "contain",
+              }}
+            />
+          </TouchableOpacity>
         </View>
 
         <Text
@@ -424,11 +337,41 @@ export default function Tasks(props) {
             fontWeight: "300",
             textAlign: "center",
             marginBottom: height / 40,
-            marginTop: -5,
+            marginTop: -15,
           }}
         >
-          TASK LIST
+          HISTORY
         </Text>
+        <CalendarStrip
+          scrollable
+          //calendarAnimation={{ type: "sequence", duration: 30 }}
+          daySelectionAnimation={{
+            type: "border",
+            duration: 200,
+            borderWidth: 1,
+            borderHighlightColor: colors.MAIN,
+          }}
+          style={{
+            height: height / 10,
+            borderRadius: 16,
+            borderWidth: 0.3,
+            borderColor: colors.GRAY,
+            paddingVertical: 10,
+          }}
+          calendarHeaderStyle={{ color: colors.MAIN }}
+          //calendarColor={"hsl(246, 100%, 60%)"}
+          dateNumberStyle={{ color: colors.GRAY }}
+          dateNameStyle={{ color: colors.GRAY }}
+          highlightDateNumberStyle={{ color: colors.MAIN }}
+          highlightDateNameStyle={{ color: colors.MAIN }}
+          disabledDateNameStyle={{ color: "grey" }}
+          disabledDateNumberStyle={{ color: "grey" }}
+          selectedDate={Date.now()}
+          //   maxDate={"2024-01-10"}
+          //   minDate={"2024-02-27"}
+          iconContainer={{ flex: 0.1 }}
+          onDateSelected={(e) => console.log(e)}
+        />
         <View
           style={[
             styles.txtContainer,
@@ -436,6 +379,7 @@ export default function Tasks(props) {
               borderWidth: 0.5,
               borderRadius: 30,
               borderColor: colors.textColor1,
+              marginTop: height / 40,
             },
           ]}
         >
@@ -467,110 +411,124 @@ export default function Tasks(props) {
         <FlatList
           data={listData}
           ListEmptyComponent={EmptyList()}
-          style={{ marginTop: height / 40 }}
+          style={{ marginTop: height / 70 }}
           renderItem={({ item }) => {
             return (
-              <Collapse>
-                <CollapseHeader>
-                  <Surface
-                    elevation={1}
-                    style={{
-                      backgroundColor: "white",
-                      height: height / 15,
-                      marginVertical: 10,
-                      marginHorizontal: height / 180,
-                      justifyContent: "center",
-                      paddingHorizontal: height / 60,
-                    }}
-                  >
+              <Surface
+                elevation={1}
+                style={{
+                  backgroundColor: "white",
+                  marginVertical: 10,
+                  marginHorizontal: height / 180,
+                  justifyContent: "center",
+                  paddingHorizontal: height / 60,
+                  paddingVertical: height / 80,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
+                        height: height / 35,
+                        width: 5,
+                        backgroundColor: item.color,
+                        borderWidth: 0.3,
+                      }}
+                    ></View>
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        fontSize: height / 57,
+                        marginStart: height / 80,
                       }}
                     >
-                      <View
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                      >
-                        <View
-                          style={{
-                            height: height / 35,
-                            width: 5,
-                            borderColor: colors.MAIN,
-                            borderWidth: 0.8,
-                          }}
-                        ></View>
-                        <Text
-                          numberOfLines={1}
-                          style={{
-                            fontSize: height / 65,
-                            marginStart: height / 80,
-                          }}
-                        >
-                          {item.title}
-                        </Text>
-                      </View>
+                      {item.title}
+                    </Text>
+                  </View>
 
-                      <Text
-                        style={{
-                          fontSize: height / 80,
-                          color: colors.GRAY,
-                          fontWeight: "300",
-                          position: "absolute",
-                          top: -height / 80,
-                          right: 1,
-                        }}
-                      >
-                        {moment(Date.now()).format("lll")}
-                      </Text>
-                    </View>
-                  </Surface>
-                </CollapseHeader>
-                <CollapseBody>
-                  <Surface
-                    elevation={1}
+                  <Text
                     style={{
-                      backgroundColor: "white",
-                      height: height / 15,
-                      marginHorizontal: height / 180,
-                      justifyContent: "center",
-                      marginTop: -10,
+                      fontSize: height / 70,
+                      color: colors.MAIN,
+                      fontWeight: "300",
                     }}
                   >
-                    <View
+                    CLOCKED IN
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginStart: height / 53,
+                  }}
+                >
+                  <View style={{ marginTop: height / 90 }}>
+                    <Text
                       style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        paddingHorizontal: 0,
+                        fontSize: height / 70,
+                        fontWeight: "300",
+                        marginBottom: 7,
                       }}
                     >
-                      <TouchableOpacity onPress={() => setShowStart(true)}>
-                        <Image
-                          source={require("../../assets/Startbtn.png")}
-                          style={{
-                            height: height / 27.5,
-                            width: height / 7.5,
-                            resizeMode: "contain",
-                          }}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => props.navigation.navigate("TaskDetails")}
-                      >
-                        <Image
-                          source={require("../../assets/View.png")}
-                          style={{
-                            height: height / 27.5,
-                            width: height / 7.5,
-                            resizeMode: "contain",
-                          }}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </Surface>
-                </CollapseBody>
-              </Collapse>
+                      Clock In Time: 11:00 pm
+                    </Text>
+                    <TouchableOpacity
+                    //   onPress={() =>
+                    //     //props.navigation.navigate("RequestDetails")
+                    //   }
+                    >
+                      <Image
+                        source={require("../../assets/Cancel.png")}
+                        style={{
+                          height: height / 27.5,
+                          width: height / 12.5,
+                          resizeMode: "contain",
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View
+                    style={{
+                      marginTop: height / 90,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: height / 70,
+                        fontWeight: "300",
+                        marginBottom: 7,
+                      }}
+                    >
+                      Clock out Time: {item.out}
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() =>
+                        props.navigation.navigate("AttendanceDetailsAdmin")
+                      }
+                    >
+                      <Image
+                        source={require("../../assets/View.png")}
+                        style={{
+                          height: height / 27.5,
+                          width: height / 12.5,
+                          resizeMode: "contain",
+                          alignSelf: "flex-end",
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Surface>
             );
           }}
         />
@@ -580,7 +538,7 @@ export default function Tasks(props) {
 }
 
 const useStyle = () => {
-  const { height, width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -622,5 +580,6 @@ const useStyle = () => {
       paddingStart: 10,
     },
   });
+
   return { styles };
 };

@@ -29,7 +29,7 @@ import { Avatar, Divider, Surface, Text, useTheme } from "react-native-paper";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function Tasks(props) {
+export default function PaidIndTask(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -211,14 +211,13 @@ export default function Tasks(props) {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.filterText}>All</Text>
+          <Text style={[styles.filterText, { fontWeight: "bold" }]}>All</Text>
           <Divider style={{ backgroundColor: "gray" }} />
           <Text style={styles.filterText}>Completed</Text>
           <Divider style={{ backgroundColor: "gray" }} />
           <Text style={styles.filterText}>In Progress</Text>
           <Divider style={{ backgroundColor: "gray" }} />
           <Text style={styles.filterText}>New</Text>
-          <Divider style={{ backgroundColor: "gray" }} />
         </View>
       </Overlay>
     );
@@ -268,7 +267,7 @@ export default function Tasks(props) {
           <View style={{ alignItems: "center", marginTop: 13 }}>
             <TouchableOpacity
               onPress={() => [
-                props.navigation.navigate("StartTask"),
+                props.navigation.navigate("PaidIndStartTask"),
                 setShowStart(false),
               ]}
             >
@@ -403,7 +402,7 @@ export default function Tasks(props) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("NewTask")}
+              onPress={() => props.navigation.navigate("PaidIndNewTask")}
             >
               <Image
                 source={require("../../assets/newtask.png")}
@@ -617,7 +616,7 @@ const useStyle = () => {
       fontSize: height / 60,
       color: colors.GRAY,
       fontWeight: "400",
-      marginVertical: height / 200,
+      marginVertical: height / 100,
       marginTop: 10,
       paddingStart: 10,
     },

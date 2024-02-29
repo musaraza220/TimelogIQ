@@ -16,15 +16,13 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { PieChart, BarChart, Grid } from "react-native-svg-charts";
-import { Overlay } from "react-native-elements";
 
 import { colors } from "../../assets/colors";
-import { Avatar, Badge, Divider, Text, useTheme } from "react-native-paper";
+import { Avatar, Badge, Text, useTheme, ProgressBar } from "react-native-paper";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function AdminHome(props) {
+export default function PaidIndHome(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -39,92 +37,6 @@ export default function AdminHome(props) {
   const [pwdIcon, setPwdIcon] = useState("eye");
   const [visibility, setVisivility] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [showFilter, setShowFilter] = useState(false);
-  const { styles } = useStyle();
-  const datas = [
-    {
-      value: 12,
-      svg: {
-        fill: colors.BLUETYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `1`,
-    },
-    {
-      value: 18,
-      svg: {
-        fill: colors.YELLOWTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `2`,
-    },
-    {
-      value: 28,
-      svg: {
-        fill: colors.GREENTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `3`,
-    },
-  ];
-  const datasEmp = [
-    {
-      value: 30,
-      svg: {
-        fill: colors.BLUETYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `1`,
-    },
-    {
-      value: 80,
-      svg: {
-        fill: colors.YELLOWTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `2`,
-    },
-    {
-      value: 40,
-      svg: {
-        fill: colors.GREENTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `3`,
-    },
-  ];
-  const datasReq = [
-    {
-      value: 80,
-      svg: {
-        fill: colors.BLUETYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `1`,
-    },
-    {
-      value: 30,
-      svg: {
-        fill: colors.YELLOWTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `2`,
-    },
-    {
-      value: 50,
-      svg: {
-        fill: colors.GREENTYPE,
-        onPress: () => console.log("press", index),
-      },
-      key: `3`,
-    },
-  ];
-
-  const pieData = datas;
-
-  const fill = "rgb(134, 65, 244)";
-  const chartData = [50, 10, 40];
-
   useEffect(() => {
     const unsubscribe = props.navigation.addListener("focus", () => {
       getSaveData();
@@ -171,65 +83,7 @@ export default function AdminHome(props) {
       setPwdIcon("eye");
     }
   };
-  const FilterPOPUP = () => {
-    return (
-      <Overlay
-        visible={showFilter}
-        overlayStyle={{
-          backgroundColor: theme.colors.background,
-          marginTop: -height / 3.3,
-          marginStart: width / 3,
-        }}
-      >
-        <View style={{ padding: 10, width: height / 5 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: height / 60,
-                color: colors.GRAY,
-                fontWeight: "bold",
-                marginVertical: height / 200,
-              }}
-            ></Text>
-            <TouchableOpacity onPress={() => setShowFilter(false)}>
-              <MaterialCommunityIcons
-                name="close-circle-outline"
-                color={colors.GRAY}
-                size={height / 40}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.filterText}>Add Task</Text>
-          <Divider style={{ backgroundColor: "gray" }} />
-          <Text style={styles.filterText}>Add Employee</Text>
-        </View>
-      </Overlay>
-    );
-  };
   const theme = useTheme();
-  const chartsData = [50, 10, 40];
-
-  const CUT_OFF = 50;
-  const Labels = ({ x, y, bandwidth, data }) =>
-    data.map((value, index) => (
-      <Text
-        key={index}
-        x={value > CUT_OFF ? x(0) + 10 : x(value) + 10}
-        y={y(index) + bandwidth / 12}
-        fontSize={14}
-        fill={value > CUT_OFF ? "white" : "black"}
-        alignmentBaseline={"middle"}
-      >
-        {value}
-      </Text>
-    ));
   return (
     <View style={[{ backgroundColor: theme.colors.background }]}>
       <StatusBar style="auto" />
@@ -288,7 +142,6 @@ export default function AdminHome(props) {
           },
         ]}
       >
-        <FilterPOPUP />
         <View
           style={{
             flexDirection: "row",
@@ -296,35 +149,29 @@ export default function AdminHome(props) {
             alignItems: "center",
           }}
         >
-          <Avatar.Image
-            size={height / 24}
-            source={require("../../assets/profPic.png")}
-            style={{ backgroundColor: colors.LIGHTGRAY }}
-          />
-          <TouchableOpacity onPress={() => setShowExport(true)}>
-            <Image
-              source={require("../../assets/export.png")}
-              style={{
-                height: height / 11,
-                width: width / 11,
-                resizeMode: "contain",
-              }}
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => setShowFilter(true)}>
+          <Text
+            style={{
+              fontSize: height / 40,
+              color: colors.GRAY,
+              fontWeight: "300",
+            }}
+          >
+            TODAY'S TASKS
+          </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("NewTask")}
+          >
             <Image
               source={require("../../assets/newtask.png")}
               style={{
-                height: height / 11,
-                width: width / 11,
+                height: height / 10,
+                width: width / 10,
                 resizeMode: "contain",
               }}
             />
           </TouchableOpacity>
         </View>
-
-        <ScrollView>
+        <View>
           <ImageBackground
             source={require("../../assets/adminheader.png")}
             style={{
@@ -353,7 +200,7 @@ export default function AdminHome(props) {
                   fontWeight: "600",
                 }}
               >
-                Tasks
+                Scheduled
               </Text>
               <Text
                 style={{
@@ -383,10 +230,16 @@ export default function AdminHome(props) {
                   marginTop: -height / 190,
                 }}
               >
-                22
+                04
               </Text>
               <View style={{ marginTop: -height / 110 }}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Badge
                     size={height / 90}
                     style={{
@@ -400,17 +253,39 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    OPEN
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.BLUETYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 AM
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: height / 80,
+                    justifyContent: "space-between",
+                    marginTop: height / 90,
                   }}
                 >
                   <Badge
@@ -426,17 +301,39 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    DELAYED
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.YELLOWTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 AM
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: height / 80,
+                    justifyContent: "space-between",
+                    marginTop: height / 90,
                   }}
                 >
                   <Badge
@@ -452,29 +349,55 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    COMPLETED
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.GREENTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 AM
                   </Text>
                 </View>
               </View>
-              <PieChart
-                style={{
-                  height: height / 15,
-                  width: height / 12,
-                  marginTop: -10,
-                }}
-                data={pieData}
-              />
             </View>
           </ImageBackground>
+          <Text
+            style={{
+              fontSize: height / 80,
+              color: colors.MAIN,
+              fontWeight: "bold",
+              marginEnd: height / 60,
+              textAlign: "right",
+              marginTop: 10,
+            }}
+          >
+            {" "}
+            View All
+          </Text>
+        </View>
 
+        <View style={{ marginTop: 8 }}>
           <ImageBackground
             source={require("../../assets/adminheader.png")}
             style={{
               padding: 1,
-              marginTop: height / 70,
             }}
             imageStyle={{
               height: height / 6.9,
@@ -499,15 +422,8 @@ export default function AdminHome(props) {
                   fontWeight: "600",
                 }}
               >
-                Employees
+                In Progress
               </Text>
-              <Text
-                style={{
-                  fontSize: height / 84,
-                  color: "white",
-                  fontWeight: "400",
-                }}
-              ></Text>
             </View>
 
             <View
@@ -527,10 +443,16 @@ export default function AdminHome(props) {
                   marginTop: -height / 190,
                 }}
               >
-                12
+                03
               </Text>
               <View style={{ marginTop: -height / 110 }}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Badge
                     size={height / 90}
                     style={{
@@ -544,16 +466,38 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    ON SITE
+                    TASK NAME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.BLUETYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 hr
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     marginTop: height / 80,
                   }}
                 >
@@ -570,16 +514,38 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    ABSENT
+                    TASK NAME
+                  </Text>
+                  <ProgressBar
+                    progress={0.3}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.YELLOWTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 hr
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     marginTop: height / 80,
                   }}
                 >
@@ -596,42 +562,55 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    CLOCKED IN
+                    TASK NAME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.GREENTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 hr
                   </Text>
                 </View>
               </View>
-
-              <BarChart
-                style={{
-                  height: height / 8,
-                  width: height / 13,
-                  marginTop: -height / 20,
-                }}
-                data={chartData}
-                svg={{ fill: colors.GREENTYPE }}
-                contentInset={{ top: 30, bottom: 30 }}
-              >
-                <Grid />
-              </BarChart>
-              {/* <PieChart
-                style={{
-                  height: height / 15,
-                  width: height / 12,
-                  marginTop: -10,
-                }}
-                data={datasEmp}
-              /> */}
             </View>
           </ImageBackground>
+          <Text
+            style={{
+              fontSize: height / 80,
+              color: colors.MAIN,
+              fontWeight: "bold",
+              marginEnd: height / 60,
+              textAlign: "right",
+              marginTop: 10,
+            }}
+          >
+            {" "}
+            View All
+          </Text>
+        </View>
 
+        <View style={{ marginTop: 8 }}>
           <ImageBackground
             source={require("../../assets/adminheader.png")}
             style={{
               padding: 1,
-              marginTop: height / 190,
             }}
             imageStyle={{
               height: height / 6.9,
@@ -656,15 +635,8 @@ export default function AdminHome(props) {
                   fontWeight: "600",
                 }}
               >
-                Requests
+                NEW
               </Text>
-              <Text
-                style={{
-                  fontSize: height / 84,
-                  color: "white",
-                  fontWeight: "400",
-                }}
-              ></Text>
             </View>
 
             <View
@@ -687,7 +659,13 @@ export default function AdminHome(props) {
                 05
               </Text>
               <View style={{ marginTop: -height / 110 }}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Badge
                     size={height / 90}
                     style={{
@@ -701,16 +679,38 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    REASSIGN
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.BLUETYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 AM
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     marginTop: height / 80,
                   }}
                 >
@@ -727,16 +727,38 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    RESCHEDULE
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.3}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.YELLOWTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 PM
                   </Text>
                 </View>
+
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "space-between",
                     marginTop: height / 80,
                   }}
                 >
@@ -753,195 +775,84 @@ export default function AdminHome(props) {
                       fontSize: height / 90,
                       color: "white",
                       fontWeight: "bold",
+                      marginEnd: height / 110,
                     }}
                   >
                     {" "}
-                    ATTENDANCE
+                    START TIME
+                  </Text>
+                  <ProgressBar
+                    progress={0.5}
+                    style={{
+                      backgroundColor: "white",
+                      width: width / 5,
+                    }}
+                    color={colors.GREENTYPE}
+                  />
+                  <Text
+                    style={{
+                      fontSize: height / 90,
+                      color: "white",
+                      fontWeight: "bold",
+                      marginStart: height / 120,
+                    }}
+                  >
+                    {" "}
+                    02:15 AM
                   </Text>
                 </View>
               </View>
-              <PieChart
-                style={{
-                  height: height / 15,
-                  width: height / 12,
-                  marginTop: -10,
-                }}
-                data={datasEmp}
-              />
             </View>
           </ImageBackground>
-
-          <ImageBackground
-            source={require("../../assets/adminheader.png")}
+          <Text
             style={{
-              padding: 1,
-              marginTop: height / 70,
-            }}
-            imageStyle={{
-              height: height / 6.9,
-              width: height / 2.34,
-              resizeMode: "stretch",
+              fontSize: height / 80,
+              color: colors.MAIN,
+              fontWeight: "bold",
+              marginEnd: height / 60,
+              textAlign: "right",
+              marginTop: 10,
             }}
           >
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-                paddingHorizontal: height / 35,
-                paddingVertical: height / 70,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 50,
-                  color: "white",
-                  fontWeight: "600",
-                }}
-              >
-                Clock In
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 84,
-                  color: "white",
-                  fontWeight: "400",
-                }}
-              ></Text>
-            </View>
-
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                paddingHorizontal: height / 35,
-                paddingVertical: 4,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "600",
-                }}
-              >
-                CLOCK IN TIME
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "500",
-                }}
-              >
-                09:00 AM
-              </Text>
-            </View>
-
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                paddingHorizontal: height / 35,
-                paddingVertical: 4,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "600",
-                }}
-              >
-                ADMIN NAME
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "500",
-                }}
-              >
-                MUSA RAZA
-              </Text>
-            </View>
-
-            <View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                paddingHorizontal: height / 35,
-                paddingVertical: 2,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "600",
-                }}
-              >
-                LOCATION
-              </Text>
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: "white",
-                  fontWeight: "500",
-                }}
-              >
-                Pakistan
-              </Text>
-            </View>
-          </ImageBackground>
-        </ScrollView>
+            {" "}
+            View All
+          </Text>
+        </View>
       </View>
     </View>
   );
 }
 
-const useStyle = () => {
-  const { height, width } = useWindowDimensions();
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    centerItems: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    centerText: {
-      textAlign: "center",
-      color: colors.WHITE,
-      fontSize: 22,
-    },
-    btnStyle: {
-      backgroundColor: colors.MAIN,
-      padding: 50,
-    },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  centerItems: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  centerText: {
+    textAlign: "center",
+    color: colors.WHITE,
+    fontSize: 22,
+  },
+  btnStyle: {
+    backgroundColor: colors.MAIN,
+    padding: 50,
+  },
 
-    txtBack: {
-      marginBottom: 10,
-      overflow: "hidden",
-      resizeMode: "contain",
-      borderRadius: 10,
-    },
-    txtContainer: {
-      padding: 7,
-      paddingVertical: 13,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-    filterText: {
-      fontSize: height / 60,
-      color: colors.GRAY,
-      fontWeight: "400",
-      marginVertical: height / 200,
-      marginTop: 10,
-      paddingStart: 10,
-    },
-  });
-  return { styles };
-};
+  txtBack: {
+    marginBottom: 10,
+    overflow: "hidden",
+    resizeMode: "contain",
+    borderRadius: 10,
+  },
+  txtContainer: {
+    padding: 7,
+    paddingVertical: 13,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});

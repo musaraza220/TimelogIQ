@@ -50,6 +50,19 @@ import AttendanceHistory from "./ui/adminuser/Attendance/AttendanceHistory";
 import AttendanceDetailsAdmin from "./ui/adminuser/Attendance/AttendanceDetailsAdmin";
 import ChatAdmin from "./ui/adminuser/ChatRequest/ChatAdmin";
 import ViewEmployeeDetails from "./ui/adminuser/ViewEmployeeDetails";
+import PaidIndHome from "./ui/personalPaid/PaidIndHome";
+import PaidIndTask from "./ui/personalPaid/PaidIndTask";
+import PaidIndNewTask from "./ui/personalPaid/PaidIndNewTask";
+import PaidIndStartTask from "./ui/personalPaid/PaidIndStartTask";
+import PaidIndCustomers from "./ui/personalPaid/PaidIndCustomers";
+import PaidIndAddCustomer from "./ui/personalPaid/PadIndAddCustomer";
+import PaidIndViewCompany from "./ui/personalPaid/PaidIndViewCompany";
+import PaidIndReports from "./ui/personalPaid/PaidIndReports";
+import AttendanceHistoryEmp from "./ui/Individual/AttendanceHistoryEmp";
+import Requests from "./ui/Individual/Requests";
+import RequestDetailsEmp from "./ui/Individual/RequestDetailsEmp";
+import NewRequest from "./ui/Individual/NewRequest";
+import ChatEmp from "./ui/Individual/ChatRequest/ChatEmp";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -68,10 +81,11 @@ function MyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Home.png")}
               />
@@ -98,10 +112,11 @@ function MyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Task.png")}
               />
@@ -121,17 +136,18 @@ function MyTabs() {
       />
 
       <Tab.Screen
-        name="Chat"
-        component={Chat}
+        name="ChatEmp"
+        component={ChatEmp}
         options={{
           tabBarIcon: ({ size, focused, color }) => {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Chat.png")}
               />
@@ -158,10 +174,11 @@ function MyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Attendance.png")}
               />
@@ -188,10 +205,11 @@ function MyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Settings.png")}
               />
@@ -411,6 +429,174 @@ function CompanyTabs() {
   );
 }
 
+function PaidIndTabs() {
+  const scheme = useColorScheme();
+  const { height, width } = useWindowDimensions();
+  return (
+    <Tab.Navigator labeled={false} initialRouteName="Home">
+      <Tab.Screen
+        name="PaidIndHome"
+        component={PaidIndHome}
+        options={{
+          tabBarIcon: ({ size, focused, color }) => {
+            return focused ? (
+              <Image
+                style={{
+                  width: height / 7,
+                  height: height / 18,
+                  tintColor: null,
+                  resizeMode: "contain",
+                  marginTop: -7,
+                }}
+                source={require("./assets/Home.png")}
+              />
+            ) : (
+              <Image
+                style={{
+                  width: height / 13,
+                  height: height / 30,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/homedark.png")}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name="PaidIndTask"
+        component={PaidIndTask}
+        options={{
+          tabBarIcon: ({ size, focused, color }) => {
+            return focused ? (
+              <Image
+                style={{
+                  width: height / 7,
+                  height: height / 18,
+                  tintColor: null,
+                  resizeMode: "contain",
+                  marginTop: -7,
+                }}
+                source={require("./assets/Task.png")}
+              />
+            ) : (
+              <Image
+                style={{
+                  width: height / 13,
+                  height: height / 30,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/taskblack.png")}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name="PaidIndReports"
+        component={PaidIndReports}
+        options={{
+          tabBarIcon: ({ size, focused, color }) => {
+            return focused ? (
+              <Image
+                style={{
+                  width: height / 7,
+                  height: height / 18,
+                  tintColor: null,
+                  resizeMode: "contain",
+                  marginTop: -7,
+                }}
+                source={require("./assets/pReport.png")}
+              />
+            ) : (
+              <Image
+                style={{
+                  width: height / 13,
+                  height: height / 30,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/pReportblack.png")}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name="PaidIndCustomers"
+        component={PaidIndCustomers}
+        options={{
+          tabBarIcon: ({ size, focused, color }) => {
+            return focused ? (
+              <Image
+                style={{
+                  width: height / 7,
+                  height: height / 18,
+                  tintColor: null,
+                  resizeMode: "contain",
+                  marginTop: -7,
+                }}
+                source={require("./assets/pCompany.png")}
+              />
+            ) : (
+              <Image
+                style={{
+                  width: height / 13,
+                  height: height / 30,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/pCompanyblack.png")}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          tabBarIcon: ({ size, focused, color }) => {
+            return focused ? (
+              <Image
+                style={{
+                  width: height / 10,
+                  height: height / 22,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/Settings.png")}
+              />
+            ) : (
+              <Image
+                style={{
+                  width: height / 13,
+                  height: height / 30,
+                  tintColor: null,
+                  resizeMode: "contain",
+                }}
+                source={require("./assets/settingsblack.png")}
+              />
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
+    // <NavigationContainer
+    //   theme={scheme === "dark" ? DarkTheme : DefaultTheme}
+    //   independent={true}
+    // >
+
+    // </NavigationContainer>
+  );
+}
+
 export default function App() {
   const scheme = useColorScheme();
   return (
@@ -523,6 +709,46 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="PaidIndNewTask"
+            component={PaidIndNewTask}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaidIndStartTask"
+            component={PaidIndStartTask}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaidIndAddCustomer"
+            component={PaidIndAddCustomer}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaidIndViewCompany"
+            component={PaidIndViewCompany}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="AttendanceHistoryEmp"
+            component={AttendanceHistoryEmp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Requests"
+            component={Requests}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NewRequest"
+            component={NewRequest}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RequestDetailsEmp"
+            component={RequestDetailsEmp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="MyTabs"
             component={MyTabs}
             options={{ headerShown: false }}
@@ -530,6 +756,11 @@ export default function App() {
           <Stack.Screen
             name="CompanyTabs"
             component={CompanyTabs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaidIndTabs"
+            component={PaidIndTabs}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
