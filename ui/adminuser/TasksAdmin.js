@@ -733,7 +733,9 @@ export default function TasksAdmin(props) {
                       }}
                     >
                       <TouchableOpacity
-                        onPress={() => props.navigation.navigate("StartTask")}
+                        onPress={() =>
+                          props.navigation.navigate("AdminStartTask")
+                        }
                       >
                         <Image
                           source={require("../../assets/Startbtn.png")}

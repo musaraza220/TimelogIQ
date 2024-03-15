@@ -199,7 +199,9 @@ export default function Login(props) {
           </Text>
         </View>
 
-        <TouchableOpacity onPress={() => props.navigation.navigate("MyTabs")}>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("CompanyTabs")}
+        >
           <Image
             source={require("../assets/loginbtn.png")}
             style={{

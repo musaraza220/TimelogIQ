@@ -560,7 +560,7 @@ export default function PaidIndTask(props) {
                         <Image
                           source={require("../../assets/View.png")}
                           style={{
-                            height: height / 27.5,
+                            height: height / 27.0,
                             width: height / 7.5,
                             resizeMode: "contain",
                           }}

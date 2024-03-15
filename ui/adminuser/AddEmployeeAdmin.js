@@ -418,44 +418,7 @@ export default function AddEmployeeAdmin(props) {
               <MaterialCommunityIcons name="plus" size={height / 30} />
             </View>
           </View>
-          <Text
-            style={{
-              fontSize: height / 58,
-              fontWeight: "500",
-              marginStart: height / 40,
-              marginTop: height / 40,
-            }}
-          >
-            Customer
-          </Text>
 
-          <View
-            style={[
-              styles.txtContainer,
-              {
-                borderWidth: 0.5,
-                borderRadius: 30,
-                borderColor: colors.textColor1,
-                marginTop: 16,
-              },
-            ]}
-          >
-            <TextInput
-              style={{
-                paddingHorizontal: 16,
-                fontSize: height / 55,
-              }}
-              onChangeText={(val) => {
-                setEmail(val), setError("");
-              }}
-              value={email}
-              placeholderTextColor={colors.GRAY}
-              cursorColor="#fff"
-              placeholder="Name"
-              autoCorrect={false}
-              returnKeyType="done"
-            />
-          </View>
           <View
             style={[
               styles.txtContainer,
@@ -538,84 +501,6 @@ export default function AddEmployeeAdmin(props) {
             />
           </View>
 
-          <Text
-            style={{
-              fontSize: height / 58,
-              fontWeight: "500",
-              marginStart: height / 40,
-              marginTop: height / 40,
-            }}
-          >
-            Billing
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginVertical: height / 60,
-              marginHorizontal: 5,
-              marginTop: height / 80,
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <MaterialCommunityIcons
-                name="checkbox-blank-outline"
-                color={colors.GRAY}
-                size={height / 50}
-              />
-              <Text
-                style={{
-                  fontSize: height / 58,
-                  fontWeight: "400",
-                  color: colors.GRAY,
-                }}
-              >
-                Hourly
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <MaterialCommunityIcons
-                name="checkbox-blank-outline"
-                color={colors.GRAY}
-                size={height / 50}
-              />
-              <Text
-                style={{
-                  fontSize: height / 58,
-                  fontWeight: "400",
-                  color: colors.GRAY,
-                }}
-              >
-                Task
-              </Text>
-            </View>
-            <View
-              style={[
-                {
-                  borderWidth: 0.5,
-                  borderColor: colors.textColor1,
-                  paddingVertical: 5,
-                },
-              ]}
-            >
-              <TextInput
-                style={{
-                  paddingHorizontal: 10,
-                  fontSize: height / 58,
-                }}
-                onChangeText={(val) => {
-                  setEmail(val), setError("");
-                }}
-                value={email}
-                placeholderTextColor={colors.GRAY}
-                cursorColor="#fff"
-                placeholder="Amount CAD"
-                autoCorrect={false}
-                returnKeyType="done"
-              />
-            </View>
-          </View>
           <View
             style={{
               marginVertical: height / 40,

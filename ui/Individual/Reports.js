@@ -23,7 +23,7 @@ import { Avatar, Text, useTheme, Surface } from "react-native-paper";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function PaidIndViewCompany(props) {
+export default function Reports(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -98,43 +98,7 @@ export default function PaidIndViewCompany(props) {
           paddingHorizontal: width / 20,
           paddingTop: height / 10,
         }}
-      >
-        {/* <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={{ fontSize: height / 65, color: "white" }}>
-            {greetMsg}
-          </Text>
-          <Text style={{ fontSize: height / 65, color: "white" }}>
-            {moment(Date.now()).format("ll")}
-          </Text>
-        </View> */}
-
-        {/* <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: height / 40,
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Avatar.Image
-              size={height / 34}
-              source={require("../../assets/profPic.png")}
-              style={{ backgroundColor: "white" }}
-            />
-            <Text
-              style={{ fontSize: height / 65, color: "white", marginStart: 10 }}
-            >
-              {username}
-            </Text>
-          </View>
-
-          <MaterialCommunityIcons
-            name="bell-outline"
-            color={"white"}
-            size={height / 43}
-          />
-        </View> */}
-      </ImageBackground>
+      ></ImageBackground>
 
       <View
         style={[
@@ -168,101 +132,25 @@ export default function PaidIndViewCompany(props) {
             color: colors.GRAY,
             fontWeight: "300",
             textAlign: "center",
-            marginVertical: height / 40,
-            marginTop: -8,
+            marginBottom: height / 40,
+            marginTop: height / 90,
           }}
         >
-          Company Name
+          REPORTS
         </Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Avatar.Image
-            size={height / 10}
-            source={require("../../assets/profPic.png")}
-            style={{
-              backgroundColor: colors.grays,
-              borderWidth: 1,
-              borderColor: colors.MAIN,
-              alignSelf: "center",
-              marginBottom: height / 70,
-            }}
-          />
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              top: height / 13,
-              right: height / 6.5,
-            }}
-          >
-            <Image
-              source={require("../../assets/camera.png")}
-              style={{
-                height: height / 35,
-                width: height / 35,
-                resizeMode: "contain",
-                backgroundColor: "white",
-              }}
-            />
-          </TouchableOpacity>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Key Contact
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              musa@gmail.com
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Email Address
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              musa@gmail.com
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Work Phone
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              +923024058011
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Mobile #
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              +923024058011
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Address
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              Pakistan
-            </Text>
-          </View>
-
-          <View style={styles.headerSwitchStyle}>
-            <Text
-              numberOfLines={1}
-              style={[styles.persTxtStyleBold, { marginBottom: 10 }]}
-            >
-              Tasks (3)
-            </Text>
-          </View>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => props.navigation.navigate("ViewProfile")}
+        >
           <Surface
             elevation={1}
             style={{
               backgroundColor: "white",
+              height: height / 15,
               marginVertical: 10,
               marginHorizontal: height / 180,
               justifyContent: "center",
-              paddingVertical: height / 60,
-              paddingHorizontal: 10,
-              borderWidth: 0.3,
-              borderColor: colors.MAIN,
+              paddingHorizontal: height / 60,
             }}
           >
             <View
@@ -276,125 +164,194 @@ export default function PaidIndViewCompany(props) {
                 <Text
                   numberOfLines={1}
                   style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
+                    fontSize: height / 60,
+                    marginStart: height / 80,
                   }}
                 >
-                  Task Title
+                  Tasks
                 </Text>
               </View>
 
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: height / 80,
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
-                  }}
-                >
-                  Task Title
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: height / 80,
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
-                  }}
-                >
-                  Task Title
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={height / 33}
+                color={colors.GRAY}
+              />
             </View>
           </Surface>
-          <View style={styles.headerSwitchStyle}>
-            <Text style={[styles.persTxtStyle, { textAlign: "justify" }]}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap
-            </Text>
-          </View>
+        </TouchableOpacity>
 
-          <View
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => props.navigation.navigate("Accounts")}
+        >
+          <Surface
+            elevation={1}
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 14,
-              marginBottom: height / 3,
+              backgroundColor: "white",
+              height: height / 15,
+              marginVertical: 10,
+              marginHorizontal: height / 180,
+              justifyContent: "center",
+              paddingHorizontal: height / 60,
             }}
           >
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
-              <Image
-                source={require("../../assets/DeleteBtn.png")}
-                style={{
-                  height: height / 6.5,
-                  width: height / 6.5,
-                  resizeMode: "contain",
-                }}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: height / 60,
+                    marginStart: height / 80,
+                  }}
+                >
+                  Employees
+                </Text>
+              </View>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={height / 33}
+                color={colors.GRAY}
               />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={require("../../assets/editBtn.png")}
-                style={{
-                  height: height / 6.5,
-                  width: height / 6.5,
-                  resizeMode: "contain",
-                }}
+            </View>
+          </Surface>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => props.navigation.navigate("Accounts")}
+        >
+          <Surface
+            elevation={1}
+            style={{
+              backgroundColor: "white",
+              height: height / 15,
+              marginVertical: 10,
+              marginHorizontal: height / 180,
+              justifyContent: "center",
+              paddingHorizontal: height / 60,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: height / 60,
+                    marginStart: height / 80,
+                  }}
+                >
+                  Customers
+                </Text>
+              </View>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={height / 33}
+                color={colors.GRAY}
               />
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+            </View>
+          </Surface>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => props.navigation.navigate("Accounts")}
+        >
+          <Surface
+            elevation={1}
+            style={{
+              backgroundColor: "white",
+              height: height / 15,
+              marginVertical: 10,
+              marginHorizontal: height / 180,
+              justifyContent: "center",
+              paddingHorizontal: height / 60,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: height / 60,
+                    marginStart: height / 80,
+                  }}
+                >
+                  Requests
+                </Text>
+              </View>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={height / 33}
+                color={colors.GRAY}
+              />
+            </View>
+          </Surface>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => props.navigation.navigate("Accounts")}
+        >
+          <Surface
+            elevation={1}
+            style={{
+              backgroundColor: "white",
+              height: height / 15,
+              marginVertical: 10,
+              marginHorizontal: height / 180,
+              justifyContent: "center",
+              paddingHorizontal: height / 60,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    fontSize: height / 60,
+                    marginStart: height / 80,
+                  }}
+                >
+                  Attendance
+                </Text>
+              </View>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={height / 33}
+                color={colors.GRAY}
+              />
+            </View>
+          </Surface>
+        </TouchableOpacity>
       </View>
     </View>
   );

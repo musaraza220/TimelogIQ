@@ -561,7 +561,7 @@ export default function Tasks(props) {
                         <Image
                           source={require("../../assets/View.png")}
                           style={{
-                            height: height / 27.5,
+                            height: height / 26.7,
                             width: height / 7.5,
                             resizeMode: "contain",
                           }}

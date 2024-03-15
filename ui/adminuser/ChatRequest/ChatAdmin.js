@@ -38,6 +38,8 @@ import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Requests } from "./Requests";
 import { MessagesMain } from "./MessagesMain";
+import { Contacts } from "./Contacts";
+import { Groups } from "./Groups";
 
 // import { useTheme } from "@react-navigation/native";
 
@@ -80,11 +82,15 @@ export default function ChatAdmin(props) {
   const [routes] = useState([
     { key: "first", title: "Messages" },
     { key: "second", title: "Requests" },
+    { key: "third", title: "Contacts" },
+    { key: "fourth", title: "Groups" },
   ]);
 
   const renderScene = SceneMap({
     first: MessagesMain,
     second: Requests,
+    third: Contacts,
+    fourth: Groups,
   });
 
   useEffect(() => {

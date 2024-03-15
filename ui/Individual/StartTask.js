@@ -154,7 +154,7 @@ export default function StartTask(props) {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Tasks")}>
             <Image
               source={require("../../assets/back.png")}
               style={{

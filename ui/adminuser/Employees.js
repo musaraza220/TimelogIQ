@@ -308,8 +308,8 @@ export default function Employees(props) {
             <Image
               source={require("../../assets/filter.png")}
               style={{
-                height: height / 10,
-                width: width / 10,
+                height: height / 11,
+                width: width / 11,
                 resizeMode: "contain",
               }}
             />
@@ -343,8 +343,8 @@ export default function Employees(props) {
               <Image
                 source={require("../../assets/export.png")}
                 style={{
-                  height: height / 10,
-                  width: width / 10,
+                  height: height / 11,
+                  width: width / 11,
                   resizeMode: "contain",
                   marginEnd: width / 7,
                 }}
@@ -357,8 +357,8 @@ export default function Employees(props) {
               <Image
                 source={require("../../assets/newtask.png")}
                 style={{
-                  height: height / 10,
-                  width: width / 10,
+                  height: height / 11,
+                  width: width / 11,
                   resizeMode: "contain",
                 }}
               />

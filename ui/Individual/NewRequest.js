@@ -225,7 +225,7 @@ export default function NewRequest(props) {
               value={email}
               placeholderTextColor={colors.GRAY}
               cursorColor="#fff"
-              placeholder="Time-off Request"
+              placeholder="Request Type"
               autoCorrect={false}
               returnKeyType="done"
             />

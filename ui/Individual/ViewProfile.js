@@ -19,11 +19,11 @@ import {
 } from "@expo/vector-icons";
 
 import { colors } from "../../assets/colors";
-import { Avatar, Text, useTheme, Surface } from "react-native-paper";
+import { Avatar, Text, useTheme } from "react-native-paper";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
-export default function PaidIndViewCompany(props) {
+export default function ViewProfile(props) {
   const { height, width } = useWindowDimensions();
   const [data, setData] = React.useState(null);
   const [greetMsg, setGreetMsg] = useState("");
@@ -172,7 +172,7 @@ export default function PaidIndViewCompany(props) {
             marginTop: -8,
           }}
         >
-          Company Name
+          Musa Raza
         </Text>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Avatar.Image
@@ -205,14 +205,6 @@ export default function PaidIndViewCompany(props) {
           </TouchableOpacity>
           <View style={styles.headerSwitchStyle}>
             <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Key Contact
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              musa@gmail.com
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
               Email Address
             </Text>
             <Text numberOfLines={1} style={styles.persTxtStyle}>
@@ -221,7 +213,7 @@ export default function PaidIndViewCompany(props) {
           </View>
           <View style={styles.headerSwitchStyle}>
             <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Work Phone
+              Phone Number
             </Text>
             <Text numberOfLines={1} style={styles.persTxtStyle}>
               +923024058011
@@ -229,139 +221,178 @@ export default function PaidIndViewCompany(props) {
           </View>
           <View style={styles.headerSwitchStyle}>
             <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Mobile #
-            </Text>
-            <Text numberOfLines={1} style={styles.persTxtStyle}>
-              +923024058011
-            </Text>
-          </View>
-          <View style={styles.headerSwitchStyle}>
-            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
-              Address
+              Work Address
             </Text>
             <Text numberOfLines={1} style={styles.persTxtStyle}>
               Pakistan
             </Text>
           </View>
-
           <View style={styles.headerSwitchStyle}>
-            <Text
-              numberOfLines={1}
-              style={[styles.persTxtStyleBold, { marginBottom: 10 }]}
-            >
-              Tasks (3)
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Position
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Dev
             </Text>
           </View>
-          <Surface
-            elevation={1}
-            style={{
-              backgroundColor: "white",
-              marginVertical: 10,
-              marginHorizontal: height / 180,
-              justifyContent: "center",
-              paddingVertical: height / 60,
-              paddingHorizontal: 10,
-              borderWidth: 0.3,
-              borderColor: colors.MAIN,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
-                  }}
-                >
-                  Task Title
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: height / 80,
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
-                  }}
-                >
-                  Task Title
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: height / 80,
-              }}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: height / 65,
-                    color: colors.MAIN,
-                  }}
-                >
-                  Task Title
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  fontSize: height / 80,
-                  color: colors.GRAY,
-                  fontWeight: "300",
-                }}
-              >
-                {moment(Date.now()).format("lll")}
-              </Text>
-            </View>
-          </Surface>
           <View style={styles.headerSwitchStyle}>
-            <Text style={[styles.persTxtStyle, { textAlign: "justify" }]}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Schedule
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.headerSwitchStyle,
+              { flexDirection: "column", alignItems: "flex-start" },
+            ]}
+          >
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              09:00 AM to 5:00 PM
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 10,
+              }}
+            >
+              <Text style={styles.blueBox}>Mon</Text>
+              <Text style={styles.grayBox}>Tue</Text>
+              <Text style={styles.grayBox}>Wed</Text>
+              <Text style={styles.blueBox}>Thu</Text>
+              <Text style={styles.grayBox}>Fri</Text>
+              <Text style={styles.grayBox}>Sat</Text>
+              <Text style={styles.grayBox}>Sun</Text>
+            </View>
+          </View>
+          <View
+            style={[
+              styles.headerSwitchStyle,
+              { flexDirection: "column", alignItems: "flex-start" },
+            ]}
+          >
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              07:00 PM to 11:00 PM
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 10,
+              }}
+            >
+              <Text style={styles.grayBox}>Mon</Text>
+              <Text style={styles.blueBox}>Tue</Text>
+              <Text style={styles.blueBox}>Wed</Text>
+              <Text style={styles.grayBox}>Thu</Text>
+              <Text style={styles.blueBox}>Fri</Text>
+              <Text style={styles.grayBox}>Sat</Text>
+              <Text style={styles.grayBox}>Sun</Text>
+            </View>
+          </View>
+
+          <View style={[styles.headerSwitchStyle, { marginTop: height / 36 }]}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Admin
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Task (Edit)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Task (Edit Request)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Task (Delete)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Employee (Add)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Employee (Edit)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Employee (Delete)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Attendance (Add)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Attendance (Edit)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Attendance (Delete)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Customer (Add)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Customer (Edit)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
+            </Text>
+          </View>
+          <View style={styles.headerSwitchStyle}>
+            <Text numberOfLines={1} style={styles.persTxtStyleBold}>
+              Customer (Delete)
+            </Text>
+            <Text numberOfLines={1} style={styles.persTxtStyle}>
+              Yes
             </Text>
           </View>
 

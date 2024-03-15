@@ -37,7 +37,7 @@ import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useTheme } from "@react-navigation/native";
 
-export const Groups = (props) => {
+export const Contacts = (props) => {
   const { height, width } = useWindowDimensions();
   const { styles } = useStyle();
   const [email, setEmail] = useState("");
@@ -47,19 +47,19 @@ export const Groups = (props) => {
   const [listData, setListData] = useState([
     {
       id: 1,
-      title: "Group Name",
+      title: "Musa Raza",
       message: "Text Message Text Message",
       date: "04:30 pm",
     },
     {
       id: 2,
-      title: "Group Name",
+      title: "Contact 1",
       message: "Text Message Text Message",
       date: "04:30 pm",
     },
     {
       id: 3,
-      title: "Group Name",
+      title: "Contact 2",
       message: "Text Message Text Message",
       date: "04:30 pm",
     },
@@ -97,19 +97,6 @@ export const Groups = (props) => {
           },
         ]}
       >
-        <TouchableOpacity
-          style={{ alignSelf: "flex-end", marginBottom: height / 70 }}
-          onPress={() => props.navigation.goBack()}
-        >
-          <Image
-            source={require("../../../assets/newtask.png")}
-            style={{
-              height: height / 25,
-              width: width / 10,
-              resizeMode: "contain",
-            }}
-          />
-        </TouchableOpacity>
         <View
           style={[
             styles.txtContainer,

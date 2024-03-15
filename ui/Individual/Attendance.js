@@ -257,7 +257,7 @@ export default function Attendnace(props) {
               source={require("../../assets/historybtn.png")}
               style={{
                 height: height / 19.5,
-                width: height / 6.5,
+                width: height / 6.0,
                 resizeMode: "contain",
               }}
             />

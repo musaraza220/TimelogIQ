@@ -63,6 +63,9 @@ import Requests from "./ui/Individual/Requests";
 import RequestDetailsEmp from "./ui/Individual/RequestDetailsEmp";
 import NewRequest from "./ui/Individual/NewRequest";
 import ChatEmp from "./ui/Individual/ChatRequest/ChatEmp";
+import ViewProfile from "./ui/Individual/ViewProfile";
+import Accounts from "./ui/Individual/Accounts";
+import Reports from "./ui/Individual/Reports";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -250,10 +253,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Home.png")}
               />
@@ -279,10 +283,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Requestblue.png")}
               />
@@ -308,10 +313,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Task.png")}
               />
@@ -338,10 +344,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Employees.png")}
               />
@@ -368,10 +375,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/adminattendance.png")}
               />
@@ -398,10 +406,11 @@ function CompanyTabs() {
             return focused ? (
               <Image
                 style={{
-                  width: height / 10,
-                  height: height / 22,
+                  width: height / 7,
+                  height: height / 18,
                   tintColor: null,
                   resizeMode: "contain",
+                  marginTop: -7,
                 }}
                 source={require("./assets/Settings.png")}
               />
@@ -746,6 +755,21 @@ export default function App() {
           <Stack.Screen
             name="RequestDetailsEmp"
             component={RequestDetailsEmp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ViewProfile"
+            component={ViewProfile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Accounts"
+            component={Accounts}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Reports"
+            component={Reports}
             options={{ headerShown: false }}
           />
           <Stack.Screen
